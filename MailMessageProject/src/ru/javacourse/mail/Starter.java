@@ -16,6 +16,9 @@ public class Starter
 
         System.out.println(mq.size());
 
+        MailMessage mail = mq.getMessage(0);
+        System.out.println(mail.getSubject());
+
         while(mq.size()>0) {
             MailMessage mm = mq.pull();
             System.out.println(mm.getSubject());

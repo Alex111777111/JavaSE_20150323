@@ -1,7 +1,6 @@
 package ru.javacourse.mail;
 
-public class MessageQueue
-{
+public class MessageQueue {
     private MessageBox head = null;
     private MessageBox tail = null;
     private int size = 0;
@@ -35,6 +34,22 @@ public class MessageQueue
             return mm;
         }
         return null;
+    }
+
+    public MailMessage getMessage(int index) {
+        if (index > size - 1 || index < 0 || size == 0) {
+            return null;
+        }
+        if (index == size - 1) {
+            return tail.getMessage();
+        }
+        int count = 0;
+        MessageBox mb = head;
+        while (count < index) {
+            count++;
+            mb = mb.getNext();
+        }
+        return mb.getMessage();
     }
 }
 
