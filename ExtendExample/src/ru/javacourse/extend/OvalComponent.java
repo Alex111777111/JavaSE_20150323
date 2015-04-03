@@ -1,24 +1,19 @@
 package ru.javacourse.extend;
 
-import javax.swing.JComponent;
 import java.awt.Graphics;
 
-public class OvalComponent extends JComponent
+public class OvalComponent extends GapComponent
 {
-    protected int gap = 0;
+    public static final int COUNTER = 0;
 
-    public int getGap() {
-        return gap;
-    }
-
-    public void setGap(int gap) {
-        this.gap = gap;
+    public OvalComponent(int gap) {
+        super(gap);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawOval(gap, gap, getWidth() - 2*gap, getHeight() - 2*gap);
+        g.drawOval(getGap(), getGap(), getWidth() - 2*getGap(), getHeight() - 2*getGap());
     }
 
 }
