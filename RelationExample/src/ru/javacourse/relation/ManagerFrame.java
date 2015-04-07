@@ -14,9 +14,9 @@ public class ManagerFrame extends JFrame implements ActionListener
     private static final String DN_C = "DN_C";
     private static final int STEP = 10;
 
-    private JFrame frame;
+    private OvalForm frame;
 
-    public void setFrame(JFrame frame) {
+    public void setOvalForm(OvalForm frame) {
         this.frame = frame;
     }
 
@@ -41,14 +41,39 @@ public class ManagerFrame extends JFrame implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Rectangle r = frame.getBounds();
+//        Rectangle r = frame.getBounds();
+//        if(UP_C.equals(e.getActionCommand())) {
+//            r.y -= STEP;
+//        }
+//        if (DN_C.equals(e.getActionCommand())) {
+//            r.y += STEP;
+//        }
+//        frame.setBounds(r);
+
+        // Manage the oval
+        OvalComponent oc = frame.getOval();
+        int gap = oc.getGap();
         if(UP_C.equals(e.getActionCommand())) {
-            r.y -= STEP;
+            try {
+                oc.setGap(gap - STEP);
+            } catch(OvalSmallException ex) {
+                ex.printStackTrace(System.out);
+            } catch(OvalBigException ex) {
+                ex.printStackTrace(System.out);
+            } catch(Exception ex) {
+                ex.printStackTrace(System.out);
+            } finally {
+                System.out.println("GAP IS CHANGED - MAY BE");
+            }
         }
         if (DN_C.equals(e.getActionCommand())) {
-            r.y += STEP;
+            try {
+                oc.setGap(gap + STEP);
+            } catch (Exception ex) {
+                ex.printStackTrace(System.out);
+            }
         }
-        frame.setBounds(r);
+
     }
 }
 

@@ -8,10 +8,9 @@ public class Starter
         ManagerFrame mf = new ManagerFrame();
         mf.setVisible(true);
 
-        JFrame frame = new JFrame();
-        frame.setBounds(500, 200, 200, 200);
+        OvalForm frame = new OvalForm();
         frame.setVisible(true);
 
-        mf.setFrame(frame);
+        mf.setOvalForm(frame);
     }
 }
