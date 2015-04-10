@@ -2,10 +2,11 @@ package ru.javacourse.book;
 
 import ru.javacourse.book.business.BookCatalog;
 import ru.javacourse.book.domain.Book;
+import ru.javacourse.book.exception.BookBusinessException;
 
 public class BookCatalogTester
 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BookBusinessException {
         BookCatalog bc = new BookCatalog();
 
         Book b = new Book();
