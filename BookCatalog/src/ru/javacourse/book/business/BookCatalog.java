@@ -1,5 +1,6 @@
 package ru.javacourse.book.business;
 
+import ru.javacourse.book.annotation.BookDaoClass;
 import ru.javacourse.book.dao.BookDAO;
 import ru.javacourse.book.dao.BookDAOFactory;
 import ru.javacourse.book.domain.Book;
@@ -7,16 +8,44 @@ import ru.javacourse.book.exception.BookBusinessException;
 import ru.javacourse.book.exception.BookDaoException;
 import ru.javacourse.book.exception.BookRuntimeException;
 
+import java.lang.reflect.Field;
+
 public class BookCatalog
 {
-    private BookDAO dao = BookDAOFactory.getDao();
+    private static BookCatalog instance;
+
+    @BookDaoClass(name = "ru.javacourse.book.dao.BookDbDAO")
+    private BookDAO dao;
+
+    private BookCatalog() {
+        try {
+            Field field = BookCatalog.class.getDeclaredField("dao");
+            BookDaoClass annotation = field.getAnnotation(BookDaoClass.class);
+            if (annotation != null) {
+                String daoName = annotation.name();
+                if (daoName != null || !daoName.trim().isEmpty()) {
+                    dao = BookDAOFactory.getDao(daoName);
+                    return;
+                }
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        dao = BookDAOFactory.getDao();
+    }
+
+    public static BookCatalog getInstance() {
+        if (instance == null) {
+            instance = new BookCatalog();
+        }
+        return instance;
+    }
+
 
     public Long addBook(Book book) throws BookBusinessException {
-        String g = null;
-        System.out.println(g.toString());
         try {
             return dao.addBook(book);
-        } catch(BookDaoException ex) {
+        } catch (BookDaoException ex) {
             throw new BookBusinessException(ex);
         }
     }

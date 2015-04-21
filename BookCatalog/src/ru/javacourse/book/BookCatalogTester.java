@@ -7,7 +7,7 @@ import ru.javacourse.book.exception.BookBusinessException;
 public class BookCatalogTester
 {
     public static void main(String[] args) throws BookBusinessException {
-        BookCatalog bc = new BookCatalog();
+        BookCatalog bc = BookCatalog.getInstance();
 
         Book b = new Book();
         bc.addBook(b);
