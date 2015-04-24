@@ -7,14 +7,17 @@ import ru.javacourse.book.domain.Book;
 import ru.javacourse.book.exception.BookBusinessException;
 import ru.javacourse.book.exception.BookDaoException;
 import ru.javacourse.book.exception.BookRuntimeException;
+import ru.javacourse.book.filter.BookFilter;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.List;
 
 public class BookCatalog
 {
     private static BookCatalog instance;
 
-    @BookDaoClass(name = "ru.javacourse.book.dao.BookDbDAO")
+    @BookDaoClass(name = "ru.javacourse.book.dao.BookFakeDAO")
     private BookDAO dao;
 
     private BookCatalog() {
@@ -40,7 +43,6 @@ public class BookCatalog
         }
         return instance;
     }
-
 
     public Long addBook(Book book) throws BookBusinessException {
         try {
@@ -73,5 +75,14 @@ public class BookCatalog
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Book> findBooks(BookFilter filter) {
+        try {
+            return dao.findBooks(filter);
+        } catch (BookDaoException e) {
+            e.printStackTrace(System.out);
+            return Collections.emptyList();
+        }
     }
 }
