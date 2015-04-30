@@ -9,7 +9,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BookFakeDAO implements BookDAO {
+public class BookFakeDAO implements BookDAO
+{
     private List<Book> books = new ArrayList<Book>();
 
     @Override
@@ -44,6 +45,7 @@ public class BookFakeDAO implements BookDAO {
         for (Book b : books) {
             if (b.getBookId().equals(book.getBookId())) {
                 b.update(book);
+                break;
             }
         }
         System.out.println("Update book for fake");

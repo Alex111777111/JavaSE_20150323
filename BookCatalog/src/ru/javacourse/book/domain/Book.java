@@ -2,7 +2,10 @@ package ru.javacourse.book.domain;
 
 import ru.javacourse.book.filter.BookFilter;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable
+{
     private Long bookId;
     private String title;
     private Double price;

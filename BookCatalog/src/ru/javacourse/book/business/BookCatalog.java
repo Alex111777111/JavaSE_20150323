@@ -9,9 +9,11 @@ import ru.javacourse.book.exception.BookDaoException;
 import ru.javacourse.book.exception.BookRuntimeException;
 import ru.javacourse.book.filter.BookFilter;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
+import java.util.PropertyResourceBundle;
 
 public class BookCatalog
 {
@@ -21,11 +23,16 @@ public class BookCatalog
     private BookDAO dao;
 
     private BookCatalog() {
+        PropertyResourceBundle prb = (PropertyResourceBundle) PropertyResourceBundle.getBundle("BookCatalog");
+        String daoName =  prb.getString("book.dao.classname");
+        if(daoName!=null) {
+            dao = BookDAOFactory.getDao(daoName);
+            return;
+        }
         try {
             Field field = BookCatalog.class.getDeclaredField("dao");
             BookDaoClass annotation = field.getAnnotation(BookDaoClass.class);
             if (annotation != null) {
-                String daoName = annotation.name();
                 if (daoName != null || !daoName.trim().isEmpty()) {
                     dao = BookDAOFactory.getDao(daoName);
                     return;

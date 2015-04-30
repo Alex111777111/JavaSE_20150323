@@ -8,7 +8,7 @@ public class Example
 
         InputStream fis = new FileInputStream("LessonBE.zip");
         OutputStream fos = new FileOutputStream("test.zip");
-        byte[] buffer = new byte[fis.available()];
+        byte[] buffer = new byte[4096];
         int size = 0;
         while((size = fis.read(buffer))!=-1) {
             fos.write(buffer, 0, size);
@@ -25,5 +25,12 @@ public class Example
         r.close();
         w.close();
 
+
+        BufferedReader br = new BufferedReader(new FileReader("C:\\work\\math.txt"));
+        String line = null;
+        while((line = br.readLine()) != null) {
+            System.out.println(line);
+        };
+        br.close();
     }
 }
