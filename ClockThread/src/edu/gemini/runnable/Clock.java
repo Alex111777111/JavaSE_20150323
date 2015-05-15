@@ -83,15 +83,18 @@ public class Clock extends JFrame implements ActionListener {
         if (e.getActionCommand().equals(START)) {
             // ОБРАТИТЬ ВНИМАНИЕ !!!
             // Создаем отдельный поток, который запустит наш класс с интерфейсом Runnable
-            timeThread = new MyThread(this);
+            if(timeThread == null) {
+                timeThread = new MyThread(this);
 
-            Thread d = new Thread(timeThread);
-            d.start();
+                Thread d = new Thread(timeThread);
+                d.start();
+            }
         }
         // Сравниваем источник события с кнопкой stop. Если нажата она - останавливаем поток
         if (e.getActionCommand().equals(STOP)) {
             // Здесь необходимо написать остановку потока
            timeThread.stopClock();
+           timeThread = null;
         }
     }
 }
