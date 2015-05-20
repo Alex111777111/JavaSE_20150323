@@ -31,9 +31,12 @@ public class BookCatalogTester
         BookFilter filter = new BookFilter();
         filter.setTitle("New");
         List<Book> books = bc.findBooks(filter);
-        if (books.size() != 1) {
-            System.out.println("Error");
+        for(Book b : books) {
+            System.out.println(b);
         }
-        bc.deleteBook(b2.getBookId());
+//        if (books.size() != 1) {
+//            System.out.println("Error");
+//        }
+//        bc.deleteBook(b2.getBookId());
     }
 }
