@@ -14,11 +14,11 @@ public class Book implements Serializable
     public Book() {
     }
 
-    public Book(Long bookId, String isbn, String title, Double price) {
+    public Book(Long bookId, String title, Double price, String isbn) {
         this.bookId = bookId;
-        this.isbn = isbn;
-        this.price = price;
         this.title = title;
+        this.price = price;
+        this.isbn = isbn;
     }
 
     public Long getBookId() {

@@ -42,7 +42,7 @@ public class BookCsvDAO extends BookFileDAO
                 String line = null;
                 while ((line = br.readLine()) != null) {
                     String[] ba = line.split(";");
-                    Book book = new Book(Long.parseLong(ba[0]), ba[1], ba[2], Double.parseDouble(ba[3]));
+                    Book book = new Book(Long.parseLong(ba[0]), ba[1], Double.parseDouble(ba[3]), ba[2]);
                     books.add(book);
                 }
             } finally {

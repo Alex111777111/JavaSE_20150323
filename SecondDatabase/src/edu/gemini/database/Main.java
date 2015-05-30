@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 /**
  * Пример для демонстрации работы с транзакциями
@@ -21,15 +22,15 @@ public class Main {
 
             try {
                 // Подтверждаем изменения
-                commitStatement(con);
+//                commitStatement(con);
                 // Отменяем изменения
-                rollbackStatement(con);
+//                rollbackStatement(con);
 
 
                 // Модификация через ResultSet
 //                modifyStudent(con);
                 // Группа команд
-//                batchUpdate(con);
+                batchUpdate(con);
                 // Группа команд 2
 //                batchUpdate2(con);
 
@@ -116,6 +117,23 @@ public class Main {
         int[] updateCounts = stmt.executeBatch();
         con.commit();
         con.setAutoCommit(true);
+
+        List<String> result = null;
+        int max = 100;
+        int counter = 0;
+        for(String s : result) {
+            stmt.addBatch("INSERT INTO Book (BOOK_NAME) VALUES ('" + s + "')");
+            counter++;
+            if(counter==max) {
+                stmt.executeBatch();
+//                con.commit();
+                counter = 0;
+            }
+        }
+        if(counter > 0) {
+            stmt.executeBatch();
+        }
+        con.commit();
     }
 
     private static void batchUpdate2(Connection con) throws SQLException {
