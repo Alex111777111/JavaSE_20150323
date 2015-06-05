@@ -4,6 +4,10 @@ import ru.javacourse.book.domain.Book;
 import ru.javacourse.book.exception.BookDaoException;
 import ru.javacourse.book.filter.BookFilter;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,19 +20,28 @@ public class BookDbDAO implements BookDAO
     private static final String UPDATE_BOOK = "UPDATE BOOK SET title = ?, price = ?, isbn = ? WHERE book_id = ?";
     private static final String DELETE_BOOK = "DELETE FROM BOOK WHERE book_id = ?";
 
-    static {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch(Exception ex) {
-        }
-    }
+//    static {
+//        try {
+//            Class.forName("org.postgresql.Driver");
+//        } catch(Exception ex) {
+//        }
+//    }
 
     private Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/javacourse";
-        String login = "postgres";
-        String password = "postgres";
-        Connection con = DriverManager.getConnection(url, login, password);
-        return con;
+//        String url = "jdbc:postgresql://localhost:5432/javacourse";
+//        String login = "postgres";
+//        String password = "postgres";
+//        Connection con = DriverManager.getConnection(url, login, password);
+//        return con;
+        try {
+            Context ctx = new InitialContext();
+            DataSource dataSource = (DataSource) ctx.lookup("java:comp/env/bookDS");
+            Connection con = dataSource.getConnection();
+            return con;
+        } catch (NamingException e) {
+            throw new SQLException(e);
+        }
+
     }
 
     @Override

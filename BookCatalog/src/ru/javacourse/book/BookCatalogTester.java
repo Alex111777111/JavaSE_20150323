@@ -33,6 +33,6 @@ public class BookCatalogTester
         if (books.size() == 0) {
             System.out.println("Error");
         }
-        bc.deleteBook(b2.getBookId());
+//        bc.deleteBook(b2.getBookId());
     }
 }

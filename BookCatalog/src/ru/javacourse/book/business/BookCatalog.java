@@ -44,7 +44,7 @@ public class BookCatalog
         dao = BookDAOFactory.getDao();
     }
 
-    public static BookCatalog getInstance() {
+    public synchronized static BookCatalog getInstance() {
         if (instance == null) {
             instance = new BookCatalog();
         }
