@@ -12,6 +12,8 @@ import java.util.List;
 
 public class BookListServlet extends HttpServlet
 {
+    public static final String TEST = "1";
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         List<Book> books = BookCatalog.getInstance().findBooks(null);
